@@ -1,0 +1,499 @@
+html {
+    scroll-behavior: smooth;
+}
+
+/* ################### Reset and Body Styling ################### */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1A1A2E; /* Primary Background */
+    color: #F5F5F5; /* Light gray for main text */
+}
+
+/* ################### Navbar Styling ################### */
+/* Navbar Styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0a0908;
+    padding: 15px 30px;
+    color: #eae0d5;
+    position: fixed; /* Keeps navbar fixed at the top */
+    top: 0;
+    width: 100%;
+    z-index: 1001; /* Ensure navbar stays above the sliding menu */
+    height: 60px; /* Set a height for the navbar */
+}
+
+.logo {
+    font-size: 1.5rem;
+    color: #eae0d5;
+}
+
+/* Menu Button for Mobile */
+.menu-toggle {
+    display: none; /* Hidden by default on desktop */
+    background: none;
+    border: 2px solid #FFC947; /* Button styling */
+    color: #FFC947;
+    font-size: 1.2rem; /* Adjusted for compact size */
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: auto; /* Prevents stretching */
+    height: auto; /* Keeps button compact */
+}
+
+/* Navbar Links for Desktop */
+#nav-links {
+    display: flex; /* Display as a horizontal menu on desktop */
+    gap: 20px;
+}
+
+#nav-links a {
+    color: #eae0d5;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block; /* Show toggle button only on mobile */
+        margin-left: auto;
+        font-size: 1rem;
+        padding: 3px 8px; /* Compact padding */
+    }
+
+    #nav-links {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 60px; /* Position below the navbar */
+        right: 0;
+        width: 70%; /* Sidebar width */
+        height: calc(100vh - 60px); /* Full height minus the navbar */
+        background-color: #16213E;
+        padding-top: 20px;
+        gap: 20px;
+        transition: transform 0.5s ease; /* Smooth slide effect */
+        transform: translateX(100%); /* Start off-screen to the right */
+        z-index: 1000; /* Ensures it’s below the navbar */
+    }
+
+    #nav-links.nav-active {
+        transform: translateX(0); /* Slide into view from the right */
+    }
+
+    #nav-links a {
+        padding: 15px 20px;
+        font-size: 1.5rem;
+        color: #eae0d5;
+    }
+
+    /* Prevent page scrolling when menu is open */
+    body.menu-open {
+        overflow: hidden;
+    }
+}
+
+
+/* ################### Hero Section ################### */
+.hero {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #F5F5F5;
+    padding: 30px;
+    background-image: url('https://i.ibb.co/hHX7BZH/image-2024-11-12-195553236.png'); /* Background image */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Enable parallax effect */
+    height: 100vh;
+    overflow: hidden;
+}
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://i.ibb.co/hHX7BZH/image-2024-11-12-195553236.png'); /* Background image */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    filter: blur(5px); /* Blur effect on background image */
+    z-index: 0; /* Place behind hero content */
+}
+
+#particleCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Place behind the hero content */
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay with 60% opacity */
+    z-index: 1; /* Ensure overlay is above the canvas but behind content */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2; /* Ensure it's above the dark overlay */
+    background-color: rgba(26, 26, 46, 0.85); /* Dark overlay with transparency */
+    border-radius: 15px;
+    padding: 40px 60px;
+    max-width: 600px;
+    color: #F5F5F5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); /* Add subtle shadow for depth */
+}
+
+
+
+.hero-content h1 {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.hero-content button {
+    background-color: #FFC947;
+    color: #1A1A2E;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.hero-content button:hover {
+    background-color: #E94560;
+}
+/* Base button styling */
+.button {
+    display: inline-block;
+    background-color: #FFC947; /* Golden background color */
+    color: #1A1A2E; /* Dark text for contrast */
+    padding: 15px 25px; /* Increased padding for a larger button */
+    font-size: 1.2rem; /* Slightly larger font size */
+    border: none;
+    border-radius: 1px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+}
+
+/* Hover effect for button */
+.button:hover {
+    background-color: #E94560; /* Bright red on hover */
+    color: #1A1A2E; /* Ensure text stays dark */
+    transform: scale(1.05); /* Slightly enlarge button on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Larger shadow on hover */
+}
+
+/* Pulse animation for button */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.button {
+    animation: pulse 3s infinite; /* Add pulse effect */
+}
+
+/* Responsive adjustments for the hero section */
+@media (max-width: 768px) {
+    .hero {
+        background-attachment: scroll;
+    }
+
+    .hero-content {
+        padding: 30px 20px;
+        max-width: 90%;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .hero-content button {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+}
+
+
+/* ################### About Us Section ################### */
+.about-us {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: left;
+    color: #A9A9B0;
+}
+
+.about-us h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #F5F5F5;
+    margin-bottom: 20px;
+}
+
+.about-us p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    color: #A9A9B0;
+}
+
+.cta-button {
+    display: inline-block;
+    font-size: 1rem;
+    color: #FFC947;
+    border: 2px solid #FFC947;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    background: none;
+}
+
+.cta-button:hover {
+    background-color: #FFC947;
+    color: #1A1A2E;
+}
+
+/* ################### Contact Section Styling ################### */
+.contact-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.form-container {
+    flex: 1;
+    max-width: 500px;
+    padding: 20px;
+}
+
+.form-container h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.form-container p {
+    font-size: 1rem;
+    color: # #A9A9B0;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+label {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+input, select, textarea, button {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #0a0908;
+    color: #eae0d5;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #333;
+}
+
+.image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.image-container img {
+    max-width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    .contact-section {
+        flex-direction: column;
+    }
+
+    .image-container {
+        order: -1;
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    .image-container img {
+        max-height: 280px;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .form-container, .image-container {
+        max-width: 100%;
+    }
+}
+
+/* ################### Footer Styling ################### */
+.footer {
+    background-color: #16213E;
+    color: #F5F5F5;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.footer h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #FFC947;
+}
+
+.footer p {
+    font-size: 1rem;
+    color: #A9A9B0;
+    margin-bottom: 20px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.footer-links li {
+    position: relative;
+}
+
+.footer-links li:not(:last-child)::after {
+    content: "|";
+    color: #A9A9B0;
+    margin-left: 15px;
+}
+
+.footer-links li a {
+    color: #F5F5F5;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.footer-links li a:hover {
+    color: #FFC947;
+}
+
+.social-icons {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.social-icons li a {
+    color: #F5F5F5;
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.social-icons li a:hover {
+    color: #FFC947;
+}
+
+.footer-bottom {
+    border-top: 1px solid #A9A9B0;
+    padding-top: 20px;
+    font-size: 0.9rem;
+    color: #A9A9B0;
+}
+
+.footer-bottom p {
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .footer-links,
+    .social-icons {
+        flex-direction: row;
+        gap: 10px;
+    }
+}
+/* ################ MISC ################### */
+#contact-spacer {
+    height: 80px; /* Height equal to the desired offset */
+    margin-top: 20px; /* Negative margin pulls the section back up */
+    visibility: hidden; /* Hide the spacer from view */
+}
